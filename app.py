@@ -21,9 +21,18 @@ def callback():
         abort(400)
     return 'OK'
 
+def getData():
+    request.headers['token'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdyb3VwMSIsInV1aWQiOiJlYTcyNDI0MC04OTI2LTQwMTAtYjljZS1mNzM0YzE1ZmNjN2IiLCJuYW1lIjoiZ3JvdXAxIiwiaWF0IjoxNzAzNjc4NTY3LCJleHAiOjE3MDM3NjQ5Njd9._pOXTF6RmiBWMZrloLwCqquTSS4zT5n6NCaIJLvIhx0"
+    request.headers['Content-Type'] = "application/json"
+    #response = request.get('https://smart-campus.kits.tw/api/api/sensorgroup_in_area/80285c45-d917-4ee7-9a3d-299d4495a181')
+
+    response  = "Testing"
+    return response
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = TextSendMessage(text=event.message.text)
+    message = getData()
     line_bot_api.reply_message(event.reply_token, message)
 
 import os
