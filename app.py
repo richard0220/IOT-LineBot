@@ -38,8 +38,8 @@ def handle_message(event):
     # value = response.get('value', None)
     # result = f'Hello {sensorId},{value}'
 
-    # message = TextSendMessage(text=event.message.text)
-    message = TextSendMessage(text=response.text)
+    message = TextSendMessage(text=event.message.text)
+    # message = TextSendMessage(text=response.text)
     line_bot_api.reply_message(event.reply_token, message)
 
 import os
