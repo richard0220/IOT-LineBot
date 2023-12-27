@@ -14,7 +14,7 @@ handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
 def get_data():
     headers = {'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdyb3VwMSIsInV1aWQiOiJlYTcyNDI0MC04OTI2LTQwMTAtYjljZS1mNzM0YzE1ZmNjN2IiLCJuYW1lIjoiZ3JvdXAxIiwiaWF0IjoxNzAzNjc4NTY3LCJleHAiOjE3MDM3NjQ5Njd9._pOXTF6RmiBWMZrloLwCqquTSS4zT5n6NCaIJLvIhx0',
     'Content-Type': 'application/json'}
-    response = request.get('https://smart-campus.kits.tw/api/api/sensorgroup_in_area/80285c45-d917-4ee7-9a3d-299d4495a181', headers=headers)
+    response = request.get('https://smart-campus.kits.tw/api/api/sensors/BATTERY_VOLTAGE/8fd928dc-b2b1-4efd-a5d1-8087f62bb0ab', headers=headers)
     return response.text
 
 @app.route("/callback", methods=['POST'])
