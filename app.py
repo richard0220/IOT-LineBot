@@ -4,6 +4,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 import os
 import json
+import requests
 
 app = Flask(__name__)
 
@@ -22,29 +23,15 @@ def callback():
         abort(400)
     return 'OK'
 
-def getData():
-    request.headers['token'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdyb3VwMSIsInV1aWQiOiJlYTcyNDI0MC04OTI2LTQwMTAtYjljZS1mNzM0YzE1ZmNjN2IiLCJuYW1lIjoiZ3JvdXAxIiwiaWF0IjoxNzAzNjc4NTY3LCJleHAiOjE3MDM3NjQ5Njd9._pOXTF6RmiBWMZrloLwCqquTSS4zT5n6NCaIJLvIhx0"
-    request.headers['Content-Type'] = "application/json"
-    #response = request.get('https://smart-campus.kits.tw/api/api/sensorgroup_in_area/80285c45-d917-4ee7-9a3d-299d4495a181')
-
-    response  = "Testing"
-    return response
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     headers = {'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdyb3VwMSIsInV1aWQiOiJlYTcyNDI0MC04OTI2LTQwMTAtYjljZS1mNzM0YzE1ZmNjN2IiLCJuYW1lIjoiZ3JvdXAxIiwiaWF0IjoxNzAzNjc4NTY3LCJleHAiOjE3MDM3NjQ5Njd9._pOXTF6RmiBWMZrloLwCqquTSS4zT5n6NCaIJLvIhx0',
     'Content-Type': 'application/json'}
-    response = request.get_json('https://smart-campus.kits.tw/api/api/sensors/BATTERY_VOLTAGE/8fd928dc-b2b1-4efd-a5d1-8087f62bb0ab', headers=headers)
-    sensorId = response.get('sensorId', None) # 解析資料，若不是 JSON，則返回 None
-    value = response.get('value', None)
-    result = f'Hello {sensorId},{value}'
-
+    r = requests.get('https://smart-campus.kits.tw/api/api/sensors/BATTERY_VOLTAGE/8fd928dc-b2b1-4efd-a5d1-8087f62bb0ab', 
+                    headers=headers)
     message = TextSendMessage(text=event.message.text)
-    message = getData()
-    line_bot_api.reply_message(event.reply_token, message)
-
     # message = get_data()
-    line_bot_api.reply_message(event.reply_token, result)
+    line_bot_api.reply_message(event.reply_token, r.text)
 
 import os
 if __name__ == "__main__":
