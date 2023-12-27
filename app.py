@@ -1,8 +1,9 @@
-from flask import Flask, request, abort
+from flask import Flask, request, abort, render_template
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 import os
+import json
 
 app = Flask(__name__)
 
@@ -34,6 +35,7 @@ def handle_message(event):
     message = TextSendMessage(text=event.message.text)
     message = getData()
     line_bot_api.reply_message(event.reply_token, message)
+
 
 import os
 if __name__ == "__main__":
