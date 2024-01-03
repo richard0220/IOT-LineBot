@@ -5,7 +5,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 import os
 import json
-
+from linebot.models import PostbackAction,URIAction, MessageAction, TemplateSendMessage, ButtonsTemplate
 app = Flask(__name__)
 
 line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
@@ -47,14 +47,22 @@ def handle_message(event):
 
     latitude = int(latitude, 16) * (10 ** (-7))
     longtitude = int(longtitude, 16) * (10 ** (-7))
-    print(f"Latitude: {latitude}, Longtitude: {longtitude}")
-    # sensorId = response.get('sensorId', None) # 解析資料，若不是 JSON，則返回 None
-    # value = response.get('value', None)
-    # result = f'Hello {sensorId},{value}'
-
-    # message = TextSendMessage(text=event.message.text)
-    message = TextSendMessage(text=response.text)
-    line_bot_api.reply_message(event.reply_token, message)
+    str_latitude = str(latitude)
+    str_longtitude = str(longtitude)
+    LocationLink =  "https://www.google.com/maps/search/?api=1&query="+str_latitude+","+str_longtitude
+    buttons_template = ButtonsTemplate(
+        title='My Button Template',
+        text='Please select an option:',
+        actions=[
+            URIAction(
+                label='找機車',
+                uri=LocationLink
+            )
+        ]
+    )
+    # Send the button template as a reply
+    template_message = TemplateSendMessage(alt_text='Button Template', template=buttons_template)
+    line_bot_api.reply_message(event.reply_token, template_message)
 
 import os
 if __name__ == "__main__":
