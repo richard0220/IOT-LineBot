@@ -69,7 +69,7 @@ def handle_message(event):
 
     except requests.exceptions.RequestException as e:
         message = TextSendMessage(text="Enable to fetch gps from api!!!")
-        line_bot_api.reply_message(event.reply_token, )
+        line_bot_api.reply_message(event.reply_token, message)
 
 import os
 if __name__ == "__main__":
