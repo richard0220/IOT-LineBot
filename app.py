@@ -31,7 +31,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    headers = {'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdyb3VwMSIsInV1aWQiOiJlYTcyNDI0MC04OTI2LTQwMTAtYjljZS1mNzM0YzE1ZmNjN2IiLCJuYW1lIjoiZ3JvdXAxIiwiaWF0IjoxNzAzNjc4NTY3LCJleHAiOjE3MDM3NjQ5Njd9._pOXTF6RmiBWMZrloLwCqquTSS4zT5n6NCaIJLvIhx0',
+    headers = {'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdyb3VwMSIsInV1aWQiOiJlYTcyNDI0MC04OTI2LTQwMTAtYjljZS1mNzM0YzE1ZmNjN2IiLCJuYW1lIjoiZ3JvdXAxIiwiaWF0IjoxNzA0MTgwMzc3LCJleHAiOjE3MDQyNjY3Nzd9.FvLMriMV-hkOQLXBM_FBH_KbtJG6IjL_V1xFof63gSA',
     'Content-Type': 'application/json'}
     response = requests.get(url='https://smart-campus.kits.tw/api/api/sensors/GPS/df11640a-35f9-4f2b-abae-0016cfac40ba', headers=headers)
     # sensorId = response.get('sensorId', None) # 解析資料，若不是 JSON，則返回 None
