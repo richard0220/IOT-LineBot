@@ -32,9 +32,13 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    headers = {'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhY2hlbG9yXzA3IiwidXVpZCI6ImFiZDMyMjhkLThmNWQtNDJmMS1hODY4LWIwODA0OTUzMTg1ZiIsIm5hbWUiOiJiYWNoZWxvcl8wNyIsImlhdCI6MTcwNDM2NjM2MiwiZXhwIjoxNzA0NDUyNzYyfQ.tr4e1oeRpQ2Yfzp83XzGb14HY7IeEj8Fhrm9742PGFg',
-    'Content-Type': 'application/json'}
-
+    get_token = "https://smart-campus.kits.tw/api/api/account/login"
+    data = {'email':'bachelor_07',
+            'password':'bachelor_07'}
+    response = requests.post(get_token, data)
+    token = response.json()[0]["token"] #'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhY2hlbG9yXzA3IiwidXVpZCI6ImFiZDMyMjhkLThmNWQtNDJmMS1hODY4LWIwODA0OTUzMTg1ZiIsIm5hbWUiOiJiYWNoZWxvcl8wNyIsImlhdCI6MTcwNDM2NjM2MiwiZXhwIjoxNzA0NDUyNzYyfQ.tr4e1oeRpQ2Yfzp83XzGb14HY7IeEj8Fhrm9742PGFg'
+    headers = {'token':token,
+               'Content-Type': 'application/json'}
     # Get GPS data from sensor id
     sensor_id = "df11640a-35f9-4f2b-abae-0016cfac40ba"
 
