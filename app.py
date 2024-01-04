@@ -32,7 +32,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    headers = {'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhY2hlbG9yXzA3IiwidXVpZCI6ImFiZDMyMjhkLThmNWQtNDJmMS1hODY4LWIwODA0OTUzMTg1ZiIsIm5hbWUiOiJiYWNoZWxvcl8wNyIsImlhdCI6MTcwNDAxMzk3NSwiZXhwIjoxNzExNzg5OTc1fQ.6uHLdlUAWQ_RsaEW9ERMU_EEB9_mbB83pww_cvfNLm0',
+    headers = {'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhY2hlbG9yXzA3IiwidXVpZCI6ImFiZDMyMjhkLThmNWQtNDJmMS1hODY4LWIwODA0OTUzMTg1ZiIsIm5hbWUiOiJiYWNoZWxvcl8wNyIsImlhdCI6MTcwNDM2NjM2MiwiZXhwIjoxNzA0NDUyNzYyfQ.tr4e1oeRpQ2Yfzp83XzGb14HY7IeEj8Fhrm9742PGFg',
     'Content-Type': 'application/json'}
 
     # Get GPS data from sensor id
