@@ -3,9 +3,10 @@ import requests
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
+from linebot.models import PostbackAction,URIAction, MessageAction, TemplateSendMessage, ButtonsTemplate
 import os
 import json
-from linebot.models import PostbackAction,URIAction, MessageAction, TemplateSendMessage, ButtonsTemplate
+
 app = Flask(__name__)
 
 line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
@@ -38,31 +39,37 @@ def handle_message(event):
     sensor_id = "df11640a-35f9-4f2b-abae-0016cfac40ba"
 
     get_gps_api = "https://smart-campus.kits.tw/api/api/sensors/GPS/" + sensor_id
-    response = requests.get(url=get_gps_api, headers=headers)
 
-    gps_data = response.json()[0]["value"]
-    gps_data = hex(gps_data)
+    try:
+        response = requests.get(url=get_gps_api, headers=headers)
 
-    latitude, longtitude = gps_data[2:9], gps_data[9:]
+        gps_data = response.json()[0]["value"]
+        gps_data = hex(gps_data)
 
-    latitude = int(latitude, 16) * (10 ** (-7))
-    longtitude = int(longtitude, 16) * (10 ** (-7))
-    str_latitude = str(latitude)
-    str_longtitude = str(longtitude)
-    LocationLink =  "https://www.google.com/maps/search/?api=1&query="+str_latitude+","+str_longtitude
-    buttons_template = ButtonsTemplate(
-        title='My Button Template',
-        text='Please select an option:',
-        actions=[
-            URIAction(
-                label='找機車',
-                uri=LocationLink
-            )
-        ]
-    )
-    # Send the button template as a reply
-    template_message = TemplateSendMessage(alt_text='Buttons Template', template=buttons_template)
-    line_bot_api.reply_message(event.reply_token, template_message)
+        latitude, longtitude = gps_data[2:9], gps_data[9:]
+
+        latitude = int(latitude, 16) * (10 ** (-7))
+        longtitude = int(longtitude, 16) * (10 ** (-7))
+        str_latitude = str(latitude)
+        str_longtitude = str(longtitude)
+        LocationLink =  "https://www.google.com/maps/search/?api=1&query="+str_latitude+","+str_longtitude
+        buttons_template = ButtonsTemplate(
+            title='My Button Template',
+            text='Please select an option:',
+            actions=[
+                URIAction(
+                    label='找機車',
+                    uri=LocationLink
+                )
+            ]
+        )
+        # Send the button template as a reply
+        template_message = TemplateSendMessage(alt_text='Buttons Template', template=buttons_template)
+        line_bot_api.reply_message(event.reply_token, template_message)
+
+    except requests.exceptions.RequestException as e:
+        message = TextSendMessage(text="Enable to fetch gps from api!!!")
+        line_bot_api.reply_message(event.reply_token, )
 
 import os
 if __name__ == "__main__":
