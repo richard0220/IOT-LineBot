@@ -61,7 +61,7 @@ def handle_message(event):
         ]
     )
     # Send the button template as a reply
-    template_message = TemplateSendMessage(alt_text='Button Template', template=buttons_template)
+    template_message = TemplateSendMessage(alt_text='Buttons Template', template=buttons_template)
     line_bot_api.reply_message(event.reply_token, template_message)
 
 import os
