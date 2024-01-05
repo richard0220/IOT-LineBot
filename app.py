@@ -36,7 +36,7 @@ def handle_message(event):
     data = {'email':'bachelor_07',
             'password':'bachelor_07'}
     response = requests.post(get_token, data)
-    token = response.json()[0]["token"] #'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhY2hlbG9yXzA3IiwidXVpZCI6ImFiZDMyMjhkLThmNWQtNDJmMS1hODY4LWIwODA0OTUzMTg1ZiIsIm5hbWUiOiJiYWNoZWxvcl8wNyIsImlhdCI6MTcwNDM2NjM2MiwiZXhwIjoxNzA0NDUyNzYyfQ.tr4e1oeRpQ2Yfzp83XzGb14HY7IeEj8Fhrm9742PGFg'
+    token = response.json()["token"] #'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhY2hlbG9yXzA3IiwidXVpZCI6ImFiZDMyMjhkLThmNWQtNDJmMS1hODY4LWIwODA0OTUzMTg1ZiIsIm5hbWUiOiJiYWNoZWxvcl8wNyIsImlhdCI6MTcwNDM2NjM2MiwiZXhwIjoxNzA0NDUyNzYyfQ.tr4e1oeRpQ2Yfzp83XzGb14HY7IeEj8Fhrm9742PGFg'
     headers = {'token':token,
                'Content-Type': 'application/json'}
     # Get GPS data from sensor id
