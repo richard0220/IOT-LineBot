@@ -6,6 +6,7 @@ from linebot.models import *
 from linebot.models import PostbackAction,URIAction, MessageAction, TemplateSendMessage, ButtonsTemplate, LocationSendMessage, MessageTemplateAction
 import os
 import json
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -51,15 +52,19 @@ def handle_message(event):
 
             gps_data = response.json()[-1]["value"]
             gps_data = hex(gps_data)
+            time = response.json()[-1]["timestamp"]
+            time = datetime.fromtimestamp(time / 1000)
+            time = str(time)
+            time = "最後紀錄時間: " + time[:len(time)-7]
 
             latitude, longtitude = gps_data[2:9], gps_data[9:]
 
             latitude = int(latitude, 16) * (10 ** (-7))
             longtitude = int(longtitude, 16) * (10 ** (-7))
-            str_latitude = str(latitude)
-            str_longtitude = str(longtitude)
-            LocationLink =  "https://www.google.com/maps/search/?api=1&query="+str_latitude+","+str_longtitude
-            location_message = LocationSendMessage(title="你的機車", address="最後紀錄時間", latitude=latitude, longitude=longtitude)
+            #str_latitude = str(latitude)
+            #str_longtitude = str(longtitude)
+            #LocationLink =  "https://www.google.com/maps/search/?api=1&query="+str_latitude+","+str_longtitude
+            location_message = LocationSendMessage(title="機車定位", address=time, latitude=latitude, longitude=longtitude)
             line_bot_api.reply_message(event.reply_token, location_message)
 
         except requests.exceptions.RequestException as e:
