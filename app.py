@@ -6,7 +6,7 @@ from linebot.models import *
 from linebot.models import PostbackAction,URIAction, MessageAction, TemplateSendMessage, ButtonsTemplate, LocationSendMessage, MessageTemplateAction
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -49,16 +49,17 @@ def handle_message(event):
 
         try:
             response = requests.get(url=get_gps_api, headers=headers)
-
+            # 4038 gps data
             gps_data = response.json()[-1]["value"]
             gps_data = hex(gps_data)
+
+            # 4038 timestamp
             time = response.json()[-1]["timestamp"]
-            time = datetime.fromtimestamp(time / 1000)
+            time = datetime.fromtimestamp(time / 1000) + timedelta(hours=8)
             time = str(time)
             time = "最後紀錄時間: " + time[:len(time)-7]
 
             latitude, longtitude = gps_data[2:9], gps_data[9:]
-
             latitude = int(latitude, 16) * (10 ** (-7))
             longtitude = int(longtitude, 16) * (10 ** (-7))
             #str_latitude = str(latitude)
