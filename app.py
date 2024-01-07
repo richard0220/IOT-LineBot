@@ -78,16 +78,16 @@ def handle_message(event):
         
     else:
         buttons_template = ButtonsTemplate(
-            title='My Button Template',
+            title='看來是又忘記機車停在哪了:)',
             text='Please select an option:',
             actions=[
                 MessageTemplateAction(
                     label='找機車',
                     text='找機車'
                 ),
-                MessageTemplateAction(
+                URIAction(
                     label='PPT',
-                    text='PPT'
+                    uri='https://docs.google.com/presentation/d/1LRZklWsZZbCR0RZvv2ahiGYByEnm5q6ntlfJr1miSaU/edit?usp=sharing'
                 )
             ]
         )
