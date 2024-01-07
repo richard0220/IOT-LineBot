@@ -72,6 +72,10 @@ def handle_message(event):
             message = TextSendMessage(text="Enable to fetch gps from api!!!")
             line_bot_api.reply_message(event.reply_token, message)
 
+    elif event.message.text == "PPT":
+        ppt_message = TextSendMessage(text="PPT link: [Link Text](https://docs.google.com/presentation/d/1LRZklWsZZbCR0RZvv2ahiGYByEnm5q6ntlfJr1miSaU/edit?usp=sharing)")
+        line_bot_api.reply_message(event.reply_token, ppt_message)
+        
     else:
         buttons_template = ButtonsTemplate(
             title='My Button Template',
@@ -80,6 +84,10 @@ def handle_message(event):
                 MessageTemplateAction(
                     label='找機車',
                     text='找機車'
+                ),
+                MessageTemplateAction(
+                    label='PPT',
+                    text='PPT'
                 )
             ]
         )
